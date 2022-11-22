@@ -1,0 +1,9 @@
+apiVersion: kctrl.carvel.dev/v1alpha1
+kind: PackageRepositoryBuild
+metadata:
+  creationTimestamp: "2022-11-22T21:39:25Z"
+  name: gtt-package-repo
+spec:
+  export:
+    imgpkgBundle:
+      image: projects.registry.vmware.com/gtt/packages/gtt-package-repo

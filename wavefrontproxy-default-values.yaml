@@ -1,0 +1,2 @@
+namespace: wavefront-proxy
+wavefront-secret-name: wavefront-secret

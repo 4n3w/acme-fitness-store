@@ -5,7 +5,7 @@ apiVersion: data.packaging.carvel.dev/v1alpha1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: wavefrontproxy.gtt.tanzu.vmware.com.0.0.0
+  name: #@ "wavefrontproxy.gtt.tanzu.vmware.com." + data.values.version
 spec:
   refName: wavefrontproxy.gtt.tanzu.vmware.com
   releasedAt: null
@@ -18,14 +18,14 @@ spec:
       template:
       - ytt:
           paths:
-          - config
+          - wavefront-proxy-package-contents/config
       - kbld:
           paths:
           - ".imgpkg/images.yml"
           - "-"
   valuesSchema:
     openAPIv3: #@ yaml.decode(data.values.openapi)["components"]["schemas"]["dataValues"]
-  version: 0.0.0
+  version: #@ data.values.version
 
 ---
 apiVersion: data.packaging.carvel.dev/v1alpha1
@@ -50,7 +50,7 @@ spec:
   packageRef:
     refName: wavefrontproxy.gtt.tanzu.vmware.com
     versionSelection:
-      constraints: 0.0.0
+      constraints: #@ data.values.version
   serviceAccountName: wavefrontproxy-sa
 status:
   conditions: null

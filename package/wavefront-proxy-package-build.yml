@@ -1,0 +1,20 @@
+apiVersion: kctrl.carvel.dev/v1alpha1
+kind: PackageBuild
+metadata:
+  creationTimestamp: null
+  name: wavefrontproxy.gtt.tanzu.vmware.com
+spec:
+  template:
+    spec:
+      app:
+        spec:
+          deploy:
+          - kapp: {}
+          template:
+          - ytt:
+              paths:
+              - wavefront-proxy-package-contents/config
+          - kbld: {}
+      export:
+      - includePaths:
+        - wavefront-proxy-package-contents/config
