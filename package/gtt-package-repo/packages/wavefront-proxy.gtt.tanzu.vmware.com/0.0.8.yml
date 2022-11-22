@@ -2,7 +2,7 @@ apiVersion: data.packaging.carvel.dev/v1alpha1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: wavefrontproxy.gtt.tanzu.vmware.com.0.0.5
+  name: wavefrontproxy.gtt.tanzu.vmware.com.0.0.8
 spec:
   refName: wavefrontproxy.gtt.tanzu.vmware.com
   releasedAt: null
@@ -10,8 +10,6 @@ spec:
     spec:
       deploy:
       - kapp: {}
-      fetch:
-      - git: {}
       template:
       - ytt:
           paths:
@@ -45,7 +43,7 @@ spec:
           type: string
           description: Name of the key for the API token
           default: wavefront.api-token
-  version: 0.0.5
+  version: 0.0.8
 ---
 apiVersion: data.packaging.carvel.dev/v1alpha1
 kind: PackageMetadata
@@ -68,7 +66,7 @@ spec:
   packageRef:
     refName: wavefrontproxy.gtt.tanzu.vmware.com
     versionSelection:
-      constraints: 0.0.5
+      constraints: 0.0.8
   serviceAccountName: wavefrontproxy-sa
 status:
   conditions: null
