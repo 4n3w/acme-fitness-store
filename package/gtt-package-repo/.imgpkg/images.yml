@@ -2,6 +2,20 @@
 apiVersion: imgpkg.carvel.dev/v1alpha1
 images:
 - annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.10
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.10
+          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.10
+  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:00f1277e7fb7bd3bd0e233f5725036259e91975eece66620a40d44c469845e1e
+- annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.11
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.11
+          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.11
+  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:00f1277e7fb7bd3bd0e233f5725036259e91975eece66620a40d44c469845e1e
+- annotations:
     kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.9
     kbld.carvel.dev/origins: |
       - resolved:

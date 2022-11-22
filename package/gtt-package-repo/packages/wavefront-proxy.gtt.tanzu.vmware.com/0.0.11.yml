@@ -1,11 +1,8 @@
-#@ load("@ytt:data", "data")  # for reading data values (generated via ytt's data-values-schema-inspect mode).
-#@ load("@ytt:yaml", "yaml")  # for dynamically decoding the output of ytt's data-values-schema-inspect
----
 apiVersion: data.packaging.carvel.dev/v1alpha1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: #@ "wavefrontproxy.gtt.tanzu.vmware.com." + data.values.version
+  name: wavefrontproxy.gtt.tanzu.vmware.com.0.0.11
 spec:
   refName: wavefrontproxy.gtt.tanzu.vmware.com
   releasedAt: null
@@ -15,19 +12,41 @@ spec:
       - kapp: {}
       fetch:
       - imgpkgBundle:
-          image: #@ "projects.registry.vmware.com/gtt/packages/wavefrontproxy:" + data.values.version
+          image: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.11
       template:
       - ytt:
           paths:
           - config
       - kbld:
           paths:
-          - ".imgpkg/images.yml"
-          - "-"
+          - .imgpkg/images.yml
+          - '-'
   valuesSchema:
-    openAPIv3: #@ yaml.decode(data.values.openapi)["components"]["schemas"]["dataValues"]
-  version: #@ data.values.version
-
+    openAPIv3:
+      type: object
+      additionalProperties: false
+      properties:
+        wavefront_svc_port:
+          type: integer
+          description: Port number for the service.
+          default: 2878
+        namespace:
+          type: string
+          description: Namespace to deploy into.
+          default: wavefront-proxy
+        wavefront-secret-name:
+          type: string
+          description: Secret in which the api token and url are stored. Specify the keys as well!
+          default: wavefront-secret
+        wavefront-uri-key:
+          type: string
+          description: Name of the key for the URI secret
+          default: wavefront.uri
+        wavefront-api-token-key:
+          type: string
+          description: Name of the key for the API token
+          default: wavefront.api-token
+  version: 0.0.11
 ---
 apiVersion: data.packaging.carvel.dev/v1alpha1
 kind: PackageMetadata
@@ -38,7 +57,6 @@ spec:
   displayName: wavefrontproxy
   longDescription: wavefrontproxy.gtt.tanzu.vmware.com
   shortDescription: wavefrontproxy.gtt.tanzu.vmware.com
-
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
@@ -51,7 +69,7 @@ spec:
   packageRef:
     refName: wavefrontproxy.gtt.tanzu.vmware.com
     versionSelection:
-      constraints: #@ data.values.version
+      constraints: 0.0.11
   serviceAccountName: wavefrontproxy-sa
 status:
   conditions: null

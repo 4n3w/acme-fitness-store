@@ -16,5 +16,8 @@ spec:
               - wavefront-proxy-package-contents/config
           - kbld: {}
       export:
-      - includePaths:
-        - wavefront-proxy-package-contents/config
+       - imgpkgBundle:
+           image: projects.registry.vmware.com/gtt/packages/wavefrontproxy
+           useKbldImagesLock: true
+         includePaths:
+          - wavefront-proxy-package-contents/config
