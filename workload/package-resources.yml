@@ -1,0 +1,58 @@
+#@ load("@ytt:data", "data")  # for reading data values (generated via ytt's data-values-schema-inspect mode).
+#@ load("@ytt:yaml", "yaml")  # for dynamically decoding the output of ytt's data-values-schema-inspect
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: wavefrontproxy.gtt.tanzu.vmware.com.0.0.0
+spec:
+  refName: wavefrontproxy.gtt.tanzu.vmware.com
+  releasedAt: null
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - git: {}
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld:
+          paths:
+          - ".imgpkg/images.yml"
+          - "-"
+  valuesSchema:
+    openAPIv3: #@ yaml.decode(data.values.openapi)["components"]["schemas"]["dataValues"]
+  version: 0.0.0
+
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  creationTimestamp: null
+  name: wavefrontproxy.gtt.tanzu.vmware.com
+spec:
+  displayName: wavefrontproxy
+  longDescription: wavefrontproxy.gtt.tanzu.vmware.com
+  shortDescription: wavefrontproxy.gtt.tanzu.vmware.com
+
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    kctrl.carvel.dev/local-fetch-0: .
+  creationTimestamp: null
+  name: wavefrontproxy
+spec:
+  packageRef:
+    refName: wavefrontproxy.gtt.tanzu.vmware.com
+    versionSelection:
+      constraints: 0.0.0
+  serviceAccountName: wavefrontproxy-sa
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0

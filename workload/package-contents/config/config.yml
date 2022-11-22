@@ -1,0 +1,69 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: #@ data.values.namespace
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wavefront-proxy
+  labels:
+    app: wavefront-proxy
+  namespace: #@ data.values.namespace
+spec:
+  ports:
+  - name: wavefront
+    port: #@ data.values.wavefront_svc_port
+    protocol: TCP
+  - name: zipkin
+    port: 9411
+    targetPort: 9411
+    protocol: TCP
+  selector:
+    app: wavefront-proxy
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: wavefront-proxy
+    name: wavefront-proxy
+  name: wavefront-proxy
+  namespace: #@ data.values.namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wavefront-proxy
+  template:
+    metadata:
+      labels:
+        app: wavefront-proxy
+    spec:
+      containers:
+      - name: wavefront-proxy
+        image: wavefronthq/proxy:latest
+        imagePullPolicy: Always
+        env:
+        - name: WAVEFRONT_URL
+          valueFrom:
+            secretKeyRef:
+              name: #@data.values.wavefront-secret-name
+              key: #@data.values.wavefront-uri-key
+        - name: WAVEFRONT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: #@data.values.wavefront-secret-name
+              key: #@data.values.wavefront-api-token-key
+        # Zipkin Tracing Environment Variable
+        - name: WAVEFRONT_PROXY_ARGS
+          value: --traceZipkinListenerPorts 9411
+        ports:
+        - containerPort: #@ data.values.wavefront_svc_port
+          protocol: TCP
+        - containerPort: 9411
+          protocol: TCP
+        securityContext:
+          privileged: false

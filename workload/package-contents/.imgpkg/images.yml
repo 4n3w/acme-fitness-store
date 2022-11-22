@@ -1,0 +1,11 @@
+---
+apiVersion: imgpkg.carvel.dev/v1alpha1
+images:
+- annotations:
+    kbld.carvel.dev/id: wavefronthq/proxy:latest
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: latest
+          url: wavefronthq/proxy:latest
+  image: index.docker.io/wavefronthq/proxy@sha256:3247dafd76dd90648985f599b42e504b3cdcc80e7eee69226d114c5d330d0260
+kind: ImagesLock
