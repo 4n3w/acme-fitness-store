@@ -1,4 +1,5 @@
 #@ load("@ytt:data", "data")
+
 ---
 apiVersion: v1
 kind: Namespace
@@ -50,13 +51,13 @@ spec:
         - name: WAVEFRONT_URL
           valueFrom:
             secretKeyRef:
-              name: #@data.values.wavefront-secret-name
-              key: #@data.values.wavefront-uri-key
+              name: #@ data.values.wavefront_secret_name
+              key: #@ data.values.wavefront_uri_key
         - name: WAVEFRONT_TOKEN
           valueFrom:
             secretKeyRef:
-              name: #@data.values.wavefront-secret-name
-              key: #@data.values.wavefront-api-token-key
+              name: #@ data.values.wavefront_secret_name
+              key: #@ data.values.wavefront_api_token_key
         - name: WAVEFRONT_PROXY_ARGS
           value: --traceZipkinListenerPorts 9411
         ports:

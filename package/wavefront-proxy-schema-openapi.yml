@@ -17,15 +17,15 @@ components:
           type: string
           description: Namespace to deploy into.
           default: wavefront-proxy
-        wavefront-secret-name:
+        wavefront_secret_name:
           type: string
           description: Secret in which the api token and url are stored. Specify the keys as well!
           default: wavefront-secret
-        wavefront-uri-key:
+        wavefront_uri_key:
           type: string
           description: Name of the key for the URI secret
           default: wavefront.uri
-        wavefront-api-token-key:
+        wavefront_api_token_key:
           type: string
           description: Name of the key for the API token
           default: wavefront.api-token

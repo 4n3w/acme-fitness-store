@@ -5,8 +5,8 @@ wavefront_svc_port: 2878
 #@schema/desc "Namespace to deploy into."
 namespace: wavefront-proxy
 #@schema/desc "Secret in which the api token and url are stored. Specify the keys as well!"
-wavefront-secret-name: wavefront-secret
+wavefront_secret_name: wavefront-secret
 #@schema/desc "Name of the key for the URI secret"
-wavefront-uri-key: wavefront.uri
+wavefront_uri_key: wavefront.uri
 #@schema/desc "Name of the key for the API token"
-wavefront-api-token-key: wavefront.api-token
+wavefront_api_token_key: wavefront.api-token

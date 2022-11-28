@@ -1,2 +1,4 @@
 namespace: wavefront-proxy
-wavefront-secret-name: wavefront-secret
+wavefront_secret_name: wavefront-secret
+wavefront_uri_key: wavefront.uri
+wavefront_api_token_key: wavefront.api-token

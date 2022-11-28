@@ -16,6 +16,20 @@ images:
           url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.11
   image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:00f1277e7fb7bd3bd0e233f5725036259e91975eece66620a40d44c469845e1e
 - annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.12
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.12
+          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.12
+  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:2de9c0b312e994f37a9c494e8f0e9e32d7629d1e4f508a866ccf8ec610220fcd
+- annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.13
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.13
+          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.13
+  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:49ce78737ce64e7efba26b776b6489babf8a38a95192f6286535f68e8ad64bd3
+- annotations:
     kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.9
     kbld.carvel.dev/origins: |
       - resolved:
