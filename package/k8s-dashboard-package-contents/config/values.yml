@@ -1,0 +1,8 @@
+#@data/values-schema
+---
+#@schema/desc "Namespace to install into"
+target_namespace: kubernetes-dashboard
+#@schema/desc "Cluster role for the kubernetes service acccount"
+cluster_role: kubernetes-dashboard
+#@schema/desc "domain dashboard is hosted on"
+dashboard_domain: https://dashboard.example.com

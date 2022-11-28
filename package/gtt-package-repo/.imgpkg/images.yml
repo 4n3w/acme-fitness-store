@@ -2,6 +2,27 @@
 apiVersion: imgpkg.carvel.dev/v1alpha1
 images:
 - annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.1
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.1
+          url: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.1
+  image: projects.registry.vmware.com/gtt/packages/k8s-dashboard@sha256:f4efb437890c8193ab77ee511f117c2f136603e3eca2999a27a9f0d807979059
+- annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.2
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.2
+          url: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.2
+  image: projects.registry.vmware.com/gtt/packages/k8s-dashboard@sha256:af2ec542fb92da6fc20eff1393f630db711bae7700061378ea64cc8e5c0f5521
+- annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.3
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.3
+          url: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.3
+  image: projects.registry.vmware.com/gtt/packages/k8s-dashboard@sha256:f70ef89cac8bb856e0579d060412d45a8f061ed1adb720236b36e707c715d10e
+- annotations:
     kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.10
     kbld.carvel.dev/origins: |
       - resolved:
@@ -28,6 +49,13 @@ images:
       - resolved:
           tag: 0.0.13
           url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.13
+  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:49ce78737ce64e7efba26b776b6489babf8a38a95192f6286535f68e8ad64bd3
+- annotations:
+    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.14
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 0.0.14
+          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.14
   image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:49ce78737ce64e7efba26b776b6489babf8a38a95192f6286535f68e8ad64bd3
 - annotations:
     kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.9

@@ -1,0 +1,69 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: k8s-dashboard.gtt.tanzu.vmware.com.0.0.3
+spec:
+  refName: k8s-dashboard.gtt.tanzu.vmware.com
+  releasedAt: null
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - imgpkgBundle:
+          image: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.3
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+  valuesSchema:
+    openAPIv3:
+      type: object
+      additionalProperties: false
+      properties:
+        target_namespace:
+          type: string
+          description: Namespace to install into
+          default: kubernetes-dashboard
+        cluster_role:
+          type: string
+          description: Cluster role for the kubernetes service acccount
+          default: kubernetes-dashboard
+        dashboard_domain:
+          type: string
+          description: domain dashboard is hosted on
+          default: https://dashboard.example.com
+  version: 0.0.3
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  creationTimestamp: null
+  name: k8s-dashboard.gtt.tanzu.vmware.com
+spec:
+  displayName: k8s-dashboard
+  longDescription: k8s-dashboard.gtt.tanzu.vmware.com
+  shortDescription: k8s-dashboard.gtt.tanzu.vmware.com
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    kctrl.carvel.dev/local-fetch-0: .
+  creationTimestamp: null
+  name: k8s-dashboard
+spec:
+  packageRef:
+    refName: k8s-dashboard.gtt.tanzu.vmware.com
+    versionSelection:
+      constraints: 0.0.3
+  serviceAccountName: k8s-dashboard-sa
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0

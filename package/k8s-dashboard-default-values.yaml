@@ -1,0 +1,3 @@
+cluster_role: kubernetes-dashboard
+dashboard_domain: https://dashboard.example.com
+target_namespace: kubernetes-dashboard

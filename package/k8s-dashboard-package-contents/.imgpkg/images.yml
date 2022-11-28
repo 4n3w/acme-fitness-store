@@ -1,0 +1,18 @@
+---
+apiVersion: imgpkg.carvel.dev/v1alpha1
+images:
+- annotations:
+    kbld.carvel.dev/id: kubernetesui/dashboard:v2.1.0
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: v2.1.0
+          url: kubernetesui/dashboard:v2.1.0
+  image: index.docker.io/kubernetesui/dashboard@sha256:7f80b5ba141bead69c4fee8661464857af300d7d7ed0274cf7beecedc00322e6
+- annotations:
+    kbld.carvel.dev/id: kubernetesui/metrics-scraper:v1.0.6
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: v1.0.6
+          url: kubernetesui/metrics-scraper:v1.0.6
+  image: index.docker.io/kubernetesui/metrics-scraper@sha256:1f977343873ed0e2efd4916a6b2f3075f310ff6fe42ee098f54fc58aa7a28ab7
+kind: ImagesLock

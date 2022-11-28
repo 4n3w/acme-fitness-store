@@ -1,0 +1,23 @@
+apiVersion: kctrl.carvel.dev/v1alpha1
+kind: PackageBuild
+metadata:
+  creationTimestamp: null
+  name: k8s-dashboard.gtt.tanzu.vmware.com
+spec:
+  template:
+    spec:
+      app:
+        spec:
+          deploy:
+          - kapp: {}
+          template:
+          - ytt:
+              paths:
+              - k8s-dashboard-package-contents/config
+          - kbld: {}
+      export:
+       - imgpkgBundle:
+           image: projects.registry.vmware.com/gtt/packages/k8s-dashboard
+           useKbldImagesLock: true
+         includePaths:
+          - k8s-dashboard-package-contents/config
