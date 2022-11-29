@@ -1,0 +1,4 @@
+#@data/values-schema
+---
+#@schema/desc "Namespace to install into"
+target_namespace: petclinic

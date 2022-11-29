@@ -1,0 +1,11 @@
+---
+apiVersion: imgpkg.carvel.dev/v1alpha1
+images:
+- annotations:
+    kbld.carvel.dev/id: arobert051/playground:spring-petclinic-v2
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: spring-petclinic-v2
+          url: arobert051/playground:spring-petclinic-v2
+  image: index.docker.io/arobert051/playground@sha256:e29e1487af5f2a78375ff64161d58ad648d433488a5cd37a03b29eacaf61955b
+kind: ImagesLock

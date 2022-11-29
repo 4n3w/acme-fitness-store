@@ -4,6 +4,19 @@ tanzu apps workload apply --file config/workload.yaml
 
 
 ### package stuff
+PACKAGE_NAME=wavefront-proxy.gtt.tanzu.vmware.com
+PACKAGE_FOLDER=wavefront-proxy-package-contents
+wavefront-proxy
+
+
+PACKAGE_DISPLAY_NAME=petclinic
+PACKAGE_NAME=petclinic.gtt.tanzu.vmware.com
+PACKAGE_FOLDER=petclinic-package-contents
+PACKAGE_VERSION=0.0.1
+
+REPO_FOLDER=gtt-package-repo
+REPO_HOST=projects.registry.vmware.com
+REPO_VERSION=0.0.20
 
 ### IMPORTANT !
 ### do not use hyphens inside data values names (the keys should use underscore...the default value can actually contain hyphens)
@@ -14,11 +27,11 @@ tanzu apps workload apply --file config/workload.yaml
 ## Creating a New Package in an Existing Repo
 # make folders for our package inside the package repo
 
-    mkdir -p gtt-package-repo/.imgpkg gtt-package-repo/packages/wavefront-proxy.gtt.tanzu.vmware.com
+    mkdir -p ${REPO_FOLDER}/.imgpkg ${REPO_FOLDER}/packages/${PACKAGE_NAME}
 
 # Also, you'll need to create the package and add it to the repo
 
-    mkdir -p wavefront-proxy-package-contents wavefront-proxy-package-contents/config
+    mkdir -p ${PACKAGE_FOLDER} ${PACKAGE_FOLDER}/config
 
 # Create the config.yml and values.yml
 
@@ -47,26 +60,26 @@ namespace: wavefront-proxy
 
 # Generate the openAPIv3 schema file:
 
-    ytt -f wavefront-proxy-package-contents/config/values.yml --data-values-schema-inspect -o openapi-v3 > wavefront-proxy-schema-openapi.yml
+    ytt -f ${PACKAGE_FOLDER}/config/values.yml --data-values-schema-inspect -o openapi-v3 > wavefront-proxy-schema-openapi.yml
 
 
 # Record the required container images with kbld
 
-    mkdir -p wavefront-proxy-package-contents/.imgpkg
-    kbld -f wavefront-proxy-package-contents/config/ --imgpkg-lock-output wavefront-proxy-package-contents/.imgpkg/images.yml
+    mkdir -p ${PACKAGE_FOLDER}/.imgpkg
+    kbld -f ${PACKAGE_FOLDER}/config/ --imgpkg-lock-output ${PACKAGE_FOLDER}/.imgpkg/images.yml
 
 # Releasing a New Version of an existing Package
 
-    VERSION=0.0.14
+    PACKAGE_VERSION=0.0.14
 
 # push the package
 
 
     REPO_HOST=projects.registry.vmware.com
-    imgpkg push -b ${REPO_HOST}/gtt/packages/wavefrontproxy:${VERSION} -f wavefront-proxy-package-contents/
+    imgpkg push -b ${REPO_HOST}/gtt/packages/${PACKAGE_DISPLAY_NAME}:${PACKAGE_VERSION} -f ${PACKAGE_FOLDER}/
 
 # TODO UPDATE FLOW
-imgpkg push -b ${REPO_HOST}/gtt/packages/k8s-dashboard:${VERSION} -f k8s-dashboard-package-contents/
+imgpkg push -b ${REPO_HOST}/gtt/packages/k8s-dashboard:${PACKAGE_VERSION} -f k8s-dashboard-package-contents/
 
 
 
