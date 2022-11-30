@@ -1,0 +1,52 @@
+#@ load("@ytt:data", "data")  # for reading data values
+#@ load("@ytt:yaml", "yaml")  # for dynamically decoding the output of ytt's data-values-schema-inspect
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  name: #@ "petclinic.gtt.tanzu.vmware.com." + data.values.version
+spec:
+  refName: petclinic.gtt.tanzu.vmware.com
+  releasedAt: null
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+        - imgpkgBundle:
+            image: #@ "projects.registry.vmware.com/gtt/packages/petclinic:" + data.values.version
+      template:
+        - ytt:
+            paths:
+              - config
+        - kbld:
+            paths:
+              - ".imgpkg/images.yml"
+              - "-"
+  valuesSchema:
+    openAPIv3: #@ yaml.decode(data.values.openapi)["components"]["schemas"]["dataValues"]
+  version: #@ data.values.version
+
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  name: petclinic.gtt.tanzu.vmware.com
+spec:
+  displayName: petclinic
+  longDescription: spring petclinic application used to showcase a simple app
+  shortDescription: spring petclinic
+
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    kctrl.carvel.dev/local-fetch-0: .
+  name: petclinic
+spec:
+  packageRef:
+    refName: petclinic.gtt.tanzu.vmware.com
+    versionSelection:
+      constraints: #@ data.values.version
+  serviceAccountName: petclinic-sa

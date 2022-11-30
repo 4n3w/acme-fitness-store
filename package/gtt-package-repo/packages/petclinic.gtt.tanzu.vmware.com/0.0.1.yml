@@ -1,0 +1,54 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  name: petclinic.gtt.tanzu.vmware.com.0.0.1
+spec:
+  refName: petclinic.gtt.tanzu.vmware.com
+  releasedAt: null
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - imgpkgBundle:
+          image: projects.registry.vmware.com/gtt/packages/petclinic:0.0.1
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+  valuesSchema:
+    openAPIv3:
+      type: object
+      additionalProperties: false
+      properties:
+        target_namespace:
+          type: string
+          description: Namespace to install into
+          default: petclinic
+  version: 0.0.1
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  name: petclinic.gtt.tanzu.vmware.com
+spec:
+  displayName: petclinic
+  longDescription: spring petclinic application used to showcase a simple app
+  shortDescription: spring petclinic
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    kctrl.carvel.dev/local-fetch-0: .
+  name: petclinic
+spec:
+  packageRef:
+    refName: petclinic.gtt.tanzu.vmware.com
+    versionSelection:
+      constraints: 0.0.1
+  serviceAccountName: petclinic-sa

@@ -1,67 +1,11 @@
 ---
 apiVersion: imgpkg.carvel.dev/v1alpha1
 images:
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.1
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.1
-          url: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.1
-  image: projects.registry.vmware.com/gtt/packages/k8s-dashboard@sha256:f4efb437890c8193ab77ee511f117c2f136603e3eca2999a27a9f0d807979059
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.2
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.2
-          url: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.2
-  image: projects.registry.vmware.com/gtt/packages/k8s-dashboard@sha256:af2ec542fb92da6fc20eff1393f630db711bae7700061378ea64cc8e5c0f5521
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.3
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.3
-          url: projects.registry.vmware.com/gtt/packages/k8s-dashboard:0.0.3
-  image: projects.registry.vmware.com/gtt/packages/k8s-dashboard@sha256:f70ef89cac8bb856e0579d060412d45a8f061ed1adb720236b36e707c715d10e
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.10
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.10
-          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.10
-  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:00f1277e7fb7bd3bd0e233f5725036259e91975eece66620a40d44c469845e1e
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.11
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.11
-          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.11
-  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:00f1277e7fb7bd3bd0e233f5725036259e91975eece66620a40d44c469845e1e
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.12
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.12
-          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.12
-  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:2de9c0b312e994f37a9c494e8f0e9e32d7629d1e4f508a866ccf8ec610220fcd
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.13
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.13
-          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.13
-  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:49ce78737ce64e7efba26b776b6489babf8a38a95192f6286535f68e8ad64bd3
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.14
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.14
-          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.14
-  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:49ce78737ce64e7efba26b776b6489babf8a38a95192f6286535f68e8ad64bd3
-- annotations:
-    kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.9
-    kbld.carvel.dev/origins: |
-      - resolved:
-          tag: 0.0.9
-          url: projects.registry.vmware.com/gtt/packages/wavefrontproxy:0.0.9
-  image: projects.registry.vmware.com/gtt/packages/wavefrontproxy@sha256:00f1277e7fb7bd3bd0e233f5725036259e91975eece66620a40d44c469845e1e
+ - annotations:
+     kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/petclinic:0.0.1
+     kbld.carvel.dev/origins: |
+       - resolved:
+           tag: 0.0.1
+           url: projects.registry.vmware.com/gtt/packages/petclinic:0.0.1
+   image: projects.registry.vmware.com/gtt/packages/petclinic@sha256:41b4fd5ce6da88aca4e718301ecbcf316c302c3cf0c752ebd6188feb6c1475f1
 kind: ImagesLock

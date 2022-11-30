@@ -6,8 +6,6 @@ tanzu apps workload apply --file config/workload.yaml
 ### package stuff
 PACKAGE_NAME=wavefront-proxy.gtt.tanzu.vmware.com
 PACKAGE_FOLDER=wavefront-proxy-package-contents
-wavefront-proxy
-
 
 PACKAGE_DISPLAY_NAME=petclinic
 PACKAGE_NAME=petclinic.gtt.tanzu.vmware.com
@@ -16,6 +14,7 @@ PACKAGE_VERSION=0.0.1
 
 REPO_FOLDER=gtt-package-repo
 REPO_HOST=projects.registry.vmware.com
+REPO_PROJECT=gtt/packages
 REPO_VERSION=0.0.20
 
 ### IMPORTANT !
@@ -60,12 +59,11 @@ namespace: wavefront-proxy
 
 # Generate the openAPIv3 schema file:
 
-    ytt -f ${PACKAGE_FOLDER}/config/values.yml --data-values-schema-inspect -o openapi-v3 > wavefront-proxy-schema-openapi.yml
+    ytt -f ${PACKAGE_FOLDER}/config/values.yml --data-values-schema-inspect -o openapi-v3 > ${PACKAGE_DISPLAY_NAME}-schema-openapi.yml
 
 
 # Record the required container images with kbld
 
-    mkdir -p ${PACKAGE_FOLDER}/.imgpkg
     kbld -f ${PACKAGE_FOLDER}/config/ --imgpkg-lock-output ${PACKAGE_FOLDER}/.imgpkg/images.yml
 
 # Releasing a New Version of an existing Package
@@ -159,7 +157,7 @@ export:
 
 # substitute the schema + version into our package definition AND create it!
 
-    ytt -f wavefront-proxy-package-resources.yml  --data-value-file openapi=wavefront-proxy-schema-openapi.yml -v version="${VERSION}" > gtt-package-repo/packages/wavefront-proxy.gtt.tanzu.vmware.com/${VERSION}.yml
+    ytt -f ${PACKAGE_DISPLAY_NAME}-package-resources.yml  --data-value-file openapi=${PACKAGE_DISPLAY_NAME}-schema-openapi.yml -v version="${VERSION}" > ${REPO_FOLDER}/packages/${PACKAGE_NAME}/${VERSION}.yml
 
 # TODO UPDATE FLOW
 ytt -f k8s-dashboard-package-resources.yml  --data-value-file openapi=k8s-dashboard-schema-openapi.yml -v version="${VERSION}" > gtt-package-repo/packages/k8s-dashboard.gtt.tanzu.vmware.com/${VERSION}.yml
@@ -168,7 +166,7 @@ ytt -f k8s-dashboard-package-resources.yml  --data-value-file openapi=k8s-dashbo
 # TODO ALSO UPDATE FLOW
     kbld -f gtt-package-repo/packages/ --imgpkg-lock-output gtt-package-repo/.imgpkg/images.yml
 
-
+kbld -f ${REPO_FOLDER}/packages/ --imgpkg-lock-output ${REPO_FOLDER}/.imgpkg/images.yml
 
 # lets push the repo with the updated packages inside
 # TODO UPDATE FLOW
@@ -176,7 +174,9 @@ ytt -f k8s-dashboard-package-resources.yml  --data-value-file openapi=k8s-dashbo
     REPO_VERSION=0.0.17
 
     REPO_HOST=projects.registry.vmware.com
-    imgpkg push -b ${REPO_HOST}/gtt/packages/gtt-package-repo:${REPO_VERSION} -f gtt-package-repo
+    REPO_NAME=gtt-package-repo
+    
+    imgpkg push -b ${REPO_HOST}/${REPO_PROJECT}:${REPO_VERSION} -f ${REPO_FOLDER}
 
 
 ## Installing The Package Repo on a Cluster
