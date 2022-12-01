@@ -1,0 +1,33 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: kctrl-petclinic.gtt.tanzu.vmware.com.0.0.2
+spec:
+  refName: kctrl-petclinic.gtt.tanzu.vmware.com
+  releasedAt: "2022-12-01T20:22:40Z"
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - imgpkgBundle:
+          image: projects.registry.vmware.com/gtt/packages/kctrl-petclinic@sha256:bf0e1f5064c4e7eaf42b13006829d71bc19e8001edbd502a33a5b963778f7866
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld:
+          paths:
+          - '-'
+          - .imgpkg/images.yml
+  valuesSchema:
+    openAPIv3:
+      additionalProperties: false
+      properties:
+        namespace:
+          default: petclinic
+          description: Namespace to install into
+          type: string
+      type: object
+  version: 0.0.2

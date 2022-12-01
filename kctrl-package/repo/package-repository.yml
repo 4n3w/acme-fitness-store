@@ -1,0 +1,15 @@
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageRepository
+metadata:
+  annotations:
+    kctrl.carvel.dev/repository-version: 0.0.2
+  creationTimestamp: "2022-12-01T20:24:26Z"
+  name: kctrl-gtt-repo
+spec:
+  fetch:
+    imgpkgBundle:
+      image: projects.registry.vmware.com/gtt/packages/kctrl-gtt-repo@sha256:651e6b3d80be2ccd95f9794a0ca07d9b9f4bc0917b3dc15c5dcd29f278bd31a5
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0

@@ -1,0 +1,52 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: kctrl-petclinic.gtt.tanzu.vmware.com.0.0.0
+spec:
+  refName: kctrl-petclinic.gtt.tanzu.vmware.com
+  releasedAt: null
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - git: {}
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld: {}
+  valuesSchema:
+    openAPIv3: null
+  version: 0.0.0
+
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  creationTimestamp: null
+  name: kctrl-petclinic.gtt.tanzu.vmware.com
+spec:
+  displayName: kctrl-petclinic
+  longDescription: spring pet clinic demo app packged using kctrl
+  shortDescription: spring pet clinic packaged using kctrl
+
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    kctrl.carvel.dev/local-fetch-0: .
+  creationTimestamp: null
+  name: kctrl-petclinic
+spec:
+  packageRef:
+    refName: kctrl-petclinic.gtt.tanzu.vmware.com
+    versionSelection:
+      constraints: 0.0.0
+  serviceAccountName: kctrl-petclinic-sa
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0

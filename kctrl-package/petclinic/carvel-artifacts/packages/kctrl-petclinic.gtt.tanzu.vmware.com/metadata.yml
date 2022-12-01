@@ -1,0 +1,9 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  creationTimestamp: null
+  name: kctrl-petclinic.gtt.tanzu.vmware.com
+spec:
+  displayName: kctrl-petclinic
+  longDescription: spring pet clinic demo app packged using kctrl
+  shortDescription: spring pet clinic packaged using kctrl

@@ -1,0 +1,24 @@
+#@ load("@ytt:data", "data")
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: #@ data.values.namespace
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pc
+  name: pc
+  namespace: #@ data.values.namespace
+spec:
+  containers:
+    - image: arobert051/playground:spring-petclinic-v2
+      name: pc
+      resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
