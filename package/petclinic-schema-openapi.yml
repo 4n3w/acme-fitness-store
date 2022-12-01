@@ -9,7 +9,7 @@ components:
       type: object
       additionalProperties: false
       properties:
-        target_namespace:
+        namespace:
           type: string
           description: Namespace to install into
           default: petclinic

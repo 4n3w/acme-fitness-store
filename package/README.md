@@ -10,12 +10,13 @@ PACKAGE_FOLDER=wavefront-proxy-package-contents
 PACKAGE_DISPLAY_NAME=petclinic
 PACKAGE_NAME=petclinic.gtt.tanzu.vmware.com
 PACKAGE_FOLDER=petclinic-package-contents
-PACKAGE_VERSION=0.0.1
+PACKAGE_VERSION=0.0.2
+PACKAGE_PROJECT=gtt/packages/${PACKAGE_DISPLAY_NAME}
 
 REPO_FOLDER=gtt-package-repo
 REPO_HOST=projects.registry.vmware.com
-REPO_PROJECT=gtt/packages
-REPO_VERSION=0.0.20
+REPO_PROJECT=gtt/packages/gtt-package-repo
+REPO_VERSION=0.0.21
 
 ### IMPORTANT !
 ### do not use hyphens inside data values names (the keys should use underscore...the default value can actually contain hyphens)
@@ -57,11 +58,6 @@ namespace: wavefront-proxy
 ```
 
 
-# Generate the openAPIv3 schema file:
-
-    ytt -f ${PACKAGE_FOLDER}/config/values.yml --data-values-schema-inspect -o openapi-v3 > ${PACKAGE_DISPLAY_NAME}-schema-openapi.yml
-
-
 # Record the required container images with kbld
 
     kbld -f ${PACKAGE_FOLDER}/config/ --imgpkg-lock-output ${PACKAGE_FOLDER}/.imgpkg/images.yml
@@ -74,7 +70,7 @@ namespace: wavefront-proxy
 
 
     REPO_HOST=projects.registry.vmware.com
-    imgpkg push -b ${REPO_HOST}/gtt/packages/${PACKAGE_DISPLAY_NAME}:${PACKAGE_VERSION} -f ${PACKAGE_FOLDER}/
+    imgpkg push -b ${REPO_HOST}/${PACKAGE_PROJECT}:${PACKAGE_VERSION} -f ${PACKAGE_FOLDER}/
 
 # TODO UPDATE FLOW
 imgpkg push -b ${REPO_HOST}/gtt/packages/k8s-dashboard:${PACKAGE_VERSION} -f k8s-dashboard-package-contents/
@@ -155,27 +151,31 @@ export:
 ```
 
 
+# Generate the openAPIv3 schema file:
+
+    ytt -f ${PACKAGE_FOLDER}/config/values.yml --data-values-schema-inspect -o openapi-v3 > ${PACKAGE_DISPLAY_NAME}-schema-openapi.yml
+
 # substitute the schema + version into our package definition AND create it!
 
-    ytt -f ${PACKAGE_DISPLAY_NAME}-package-resources.yml  --data-value-file openapi=${PACKAGE_DISPLAY_NAME}-schema-openapi.yml -v version="${VERSION}" > ${REPO_FOLDER}/packages/${PACKAGE_NAME}/${VERSION}.yml
+    ytt -f ${PACKAGE_DISPLAY_NAME}-package-resources.yml  --data-value-file openapi=${PACKAGE_DISPLAY_NAME}-schema-openapi.yml -v version="${PACKAGE_VERSION}" > ${REPO_FOLDER}/packages/${PACKAGE_NAME}/${PACKAGE_VERSION}.yml
 
 # TODO UPDATE FLOW
 ytt -f k8s-dashboard-package-resources.yml  --data-value-file openapi=k8s-dashboard-schema-openapi.yml -v version="${VERSION}" > gtt-package-repo/packages/k8s-dashboard.gtt.tanzu.vmware.com/${VERSION}.yml
 
 # Next, let's use kbld to record which package bundles are used:
 # TODO ALSO UPDATE FLOW
-    kbld -f gtt-package-repo/packages/ --imgpkg-lock-output gtt-package-repo/.imgpkg/images.yml
 
-kbld -f ${REPO_FOLDER}/packages/ --imgpkg-lock-output ${REPO_FOLDER}/.imgpkg/images.yml
+    kbld -f ${REPO_FOLDER}/packages/ --imgpkg-lock-output ${REPO_FOLDER}/.imgpkg/images.yml
 
 # lets push the repo with the updated packages inside
 # TODO UPDATE FLOW
 
-    REPO_VERSION=0.0.17
+    REPO_VERSION=0.0.21
 
     REPO_HOST=projects.registry.vmware.com
     REPO_NAME=gtt-package-repo
-    
+
+    REPO_VERSION=0.0.21
     imgpkg push -b ${REPO_HOST}/${REPO_PROJECT}:${REPO_VERSION} -f ${REPO_FOLDER}
 
 
@@ -184,26 +184,28 @@ kbld -f ${REPO_FOLDER}/packages/ --imgpkg-lock-output ${REPO_FOLDER}/.imgpkg/ima
 ### install/update package repo
 ### TODO UPDATE FLOW
 tanzu package repository add gtt-repo \
-    --url projects.registry.vmware.com/gtt/packages/gtt-package-repo:${REPO_VERSION} \
+    --url projects.registry.vmware.com/gtt/packages/gtt-package-repo:0.0.20 \
     --namespace tanzu-package-repo-global \
     --create-namespace
 
 
 ## verify install
-tanzu package repository get gtt-repo --namespace tanzu-package-repo-global
+tanzu package repository get ${REPO_NAME} --namespace tanzu-package-repo-global
+
 
 ## generate a values file
-tanzu package available get wavefrontproxy.gtt.tanzu.vmware.com/0.0.1 \
-   --namespace tanzu-package-repo-global \
+tanzu package available get ${PACKAGE_NAME}/${PACKAGE_VERSION} \
+   --namespace ${REPO_NAME} \
    --generate-default-values-file
 
+## customize it
 
 ## install package
-tanzu package install wavefront-proxy \
-    --package-name wavefrontproxy.gtt.tanzu.vmware.com \
-    --namespace wavefront-proxy \
-    --version ${VERSION} \
-    --values-file wavefrontproxy-default-values.yaml \
+tanzu package install ${PACKAGE_DISPLAY_NAME} \
+    --package-name ${PACKAGE_NAME} \
+    --namespace package-install
+    --version ${PACKAGE_VERSION} \
+    --values-file ${PACKAGE_DISPLAY_NAME}-default-values.yaml \
     --create-namespace
 
 tanzu package install k8s-dashboard \
@@ -212,7 +214,6 @@ tanzu package install k8s-dashboard \
     --version ${VERSION} \
     --values-file k8s-dashboard-default-values.yaml \
     --create-namespace
-
 
 ## update
 

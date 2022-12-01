@@ -1,11 +1,18 @@
 ---
 apiVersion: imgpkg.carvel.dev/v1alpha1
 images:
- - annotations:
-     kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/petclinic:0.0.1
-     kbld.carvel.dev/origins: |
-       - resolved:
-           tag: 0.0.1
-           url: projects.registry.vmware.com/gtt/packages/petclinic:0.0.1
-   image: projects.registry.vmware.com/gtt/packages/petclinic@sha256:41b4fd5ce6da88aca4e718301ecbcf316c302c3cf0c752ebd6188feb6c1475f1
+  - annotations:
+      kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/petclinic:0.0.1
+      kbld.carvel.dev/origins: |
+        - resolved:
+            tag: 0.0.1
+            url: projects.registry.vmware.com/gtt/packages/petclinic:0.0.1
+    image: projects.registry.vmware.com/gtt/packages/petclinic@sha256:41b4fd5ce6da88aca4e718301ecbcf316c302c3cf0c752ebd6188feb6c1475f1
+  - annotations:
+      kbld.carvel.dev/id: projects.registry.vmware.com/gtt/packages/petclinic:0.0.2
+      kbld.carvel.dev/origins: |
+        - resolved:
+            tag: 0.0.2
+            url: projects.registry.vmware.com/gtt/packages/petclinic:0.0.2
+    image: projects.registry.vmware.com/gtt/packages/petclinic@sha256:bf0e1f5064c4e7eaf42b13006829d71bc19e8001edbd502a33a5b963778f7866
 kind: ImagesLock
